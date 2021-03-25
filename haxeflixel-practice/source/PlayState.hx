@@ -4,12 +4,14 @@ import flixel.util.FlxColor;
 import flixel.text.FlxText;
 import flixel.FlxG;
 import flixel.FlxState;
+import Hero;
 
 class PlayState extends FlxState
 {
 	private var myText:FlxText;
 	private var movingRight:Bool = true;
 	private var movingDown:Bool = true;
+	private var hero:Hero;
 
 	override public function create()
 	{
@@ -25,6 +27,15 @@ class PlayState extends FlxState
 		myText.applyMarkup("$Hello World$",
 			[new FlxTextFormatMarkerPair(greenFormat, "$")]);
 		add(myText);
+
+		// add a hero object
+		hero = new Hero(FlxG.width / 2, FlxG.height / 2);
+		add(hero);
+
+		// Add instructions of how to move hero
+		var controlsText = new FlxText(0,0,0, "Use arrow keys or WASD\nto control the hero", 12);
+		add(controlsText);
+
 	}
 
 	override public function update(elapsed:Float)

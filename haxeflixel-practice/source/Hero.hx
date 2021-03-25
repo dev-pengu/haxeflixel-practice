@@ -1,5 +1,6 @@
 package;
 
+import flixel.FlxG;
 import flixel.math.FlxRandom;
 import flixel.util.FlxColor;
 import flixel.FlxSprite;
@@ -17,14 +18,33 @@ class Hero extends FlxSprite
 	override public function update(elapsed:Float):Void
 	{
         this.color = 0x000000 | (Std.int(x) % 255) << 16 | (Std.int(x) % 255) << 8 | (Std.int(x) % 255) << 4;
-        randomMove();
+		if (FlxG.keys.enabled)
+		{
+			if (FlxG.keys.pressed.LEFT || FlxG.keys.pressed.A)
+			{
+				x--;
+			}
+			if (FlxG.keys.pressed.RIGHT || FlxG.keys.pressed.D)
+			{
+				x++;
+			}
+			if (FlxG.keys.pressed.UP || FlxG.keys.pressed.W)
+			{
+				y--;
+			}
+			if (FlxG.keys.pressed.DOWN || FlxG.keys.pressed.S)
+			{
+				y++;
+			}
+		}
+
 		super.update(elapsed);
 	}
 
     private function randomMove() {
         var rand:FlxRandom = new FlxRandom();
-        var xMove:Int = rand.int(-3,3);
-        var yMove:Int = rand.int(-3,3);
+        var xMove:Int = rand.int(-10,10);
+        var yMove:Int = rand.int(-10,10);
         x += xMove;
         y += yMove;
     }
