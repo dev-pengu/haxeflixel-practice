@@ -17,8 +17,21 @@ class Hero extends FlxSprite
 
 	override public function update(elapsed:Float):Void
 	{
+		changeHeroColor();
+		
+		handleMovementInput();
+
+		heroWrap();
+
+		super.update(elapsed);
+	}
+	
+	private function changeHeroColor() {
 		//Change sprite color based on x coordinate
-        this.color = 0x000000 | (Std.int(x) % 255) << 16 | (Std.int(x) % 255) << 8 | (Std.int(x) % 255) << 4;
+        	this.color = 0x000000 | (Std.int(x) % 255) << 16 | (Std.int(x) % 255) << 8 | (Std.int(x) % 255) << 4;
+	}
+	
+	private function handleMovementInput() {
 		//Check keyboard input and move hero accordingly
 		if (FlxG.keys.enabled)
 		{
@@ -39,7 +52,9 @@ class Hero extends FlxSprite
 				y++;
 			}
 		}
-
+	}
+	
+	private function heroWrap() {
 		//Wrap hero if it has exceeded the boundaries
 		if (x > FlxG.width) {
 			x = 0 - width;
@@ -53,8 +68,6 @@ class Hero extends FlxSprite
 		if (y < 0 - height) {
 			y = FlxG.height;
 		}
-
-		super.update(elapsed);
 	}
 
     private function randomMove() {
